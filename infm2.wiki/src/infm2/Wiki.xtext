@@ -1,0 +1,9 @@
+grammar infm2.Wiki with org.eclipse.xtext.common.Terminals
+
+generate wiki "http://www.Wiki.infm2"
+
+Model:
+	greetings+=Greeting*;
+	
+Greeting:
+	'Hello' name=ID '!';
