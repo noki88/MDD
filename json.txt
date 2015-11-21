@@ -1,0 +1,21 @@
+"wikititel":{
+	"descrition":"text",
+	"color":"#000",
+	"copyright":"text",
+	"seiten":[
+		"seite1name":{
+			"starttext":"",
+			"para":[
+				{"para1titel1":"parainhalt"},
+				{"para1titel2":"parainhalt"}
+			]
+		},
+		"seite2name":{
+			"starttext":"",
+			"para":[
+				{"para1titel1":"parainhalt"},
+				{"para1titel2":"parainhalt"}
+			]
+		}
+	]
+}
