@@ -3,7 +3,44 @@ grammar infm2.Wiki with org.eclipse.xtext.common.Terminals
 generate wiki "http://www.Wiki.infm2"
 
 Model:
-	greetings+=Greeting*;
+	wikies += Wiki*;
 	
-Greeting:
-	'Hello' name=ID '!';
+Wiki:
+	'wiki' name=ID '{'
+		color = Color
+		copyright = Copyright
+		sites += Site*
+	'}'
+;
+
+Site:
+	'site' name=ID '{'
+		pragraphs += Pragraph*
+	'}'
+;
+
+Pragraph:
+	'pragraph' name=ID '{'
+		text += TextBrick*
+	'}'
+;
+
+TextBrick:
+	Text | Link
+;
+
+Text:
+	'text' name=ID
+;
+
+Link:
+	'link' name=ID
+;
+
+Color:
+	'color' name=ID
+	;
+
+Copyright:
+	'copyright' name=ID
+	;
