@@ -1,0 +1,22 @@
+wiki MyWiki {
+	color #FF0000
+	copyright Jonas
+	site Seite1 {
+		pragraph Para1 {
+			text Text1
+			link Link1 {
+				Seite2
+			}
+		}
+		pragraph Para2 {
+			text Text1
+			text Text2
+		}
+	}
+	site Seite2 {
+		pragraph Para1 {
+			text Text1
+		}
+		
+	}
+}

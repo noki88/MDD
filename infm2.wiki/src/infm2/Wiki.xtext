@@ -7,19 +7,19 @@ Model:
 	
 Wiki:
 	'wiki' name=ID '{'
-		color = Color
-		copyright = Copyright
+		color += Color
+		copyright += Copyright
 		(sites += Site)*
 	'}'
 ;
 
 Site:
 	'site' name=ID '{'
-		(pragraphs += Pragraph)*
+		(pragraphs += Paragraph)*
 	'}'
 ;
 
-Pragraph:
+Paragraph:
 	'pragraph' name=ID '{'
 		(text += TextBrick)*
 	'}'
@@ -35,12 +35,12 @@ Text:
 
 Link:
 	'link' name=ID '{'
-		site = [Site]
+		siteLink = [Site]
 	'}'
 ;
 
 Color:
-	'color' name=ID
+	'color' name='#'ID
 	;
 
 Copyright:
