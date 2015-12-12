@@ -3,25 +3,25 @@ grammar infm2.Wiki with org.eclipse.xtext.common.Terminals
 generate wiki "http://www.Wiki.infm2"
 
 Model:
-	wikies += Wiki*;
+	(wikies += Wiki)*;
 	
 Wiki:
 	'wiki' name=ID '{'
 		color = Color
 		copyright = Copyright
-		sites += Site*
+		(sites += Site)*
 	'}'
 ;
 
 Site:
 	'site' name=ID '{'
-		pragraphs += Pragraph*
+		(pragraphs += Pragraph)*
 	'}'
 ;
 
 Pragraph:
 	'pragraph' name=ID '{'
-		text += TextBrick*
+		(text += TextBrick)*
 	'}'
 ;
 
@@ -34,7 +34,9 @@ Text:
 ;
 
 Link:
-	'link' name=ID
+	'link' name=ID '{'
+		site = [Site]
+	'}'
 ;
 
 Color:
