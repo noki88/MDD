@@ -29,6 +29,7 @@ class WikiGenerator implements IGenerator {
 				fsa.generateFile("\\" + e.name + "\\" + f.name + ".html", compile(e, f))
 			}
 			//fsa.generateFile(e.name + "Index.html", e.compile)
+			fsa.generateFile(e.name + ".java", e.compileJava)
 		}
 	}
 	
@@ -75,17 +76,11 @@ class WikiGenerator implements IGenerator {
 	</html>
 	'''
 	
-	def dispatch compile(Text t) '''
-		«t.name»
-	'''
+	def dispatch compile(Text t) '''«t.name» '''
 	
-	def dispatch compile(Link l)'''
-		<a href="«l.siteLink.compileSiteName»">«l.name»</a>
-	'''
+	def dispatch compile(Link l)'''<a href='«l.siteLink.compileSiteName»'>«l.name»</a> '''
 	
-	def compileSiteName(Site s)'''
-		«s.name».html
-	'''
+	def compileSiteName(Site s)'''«s.name».html	'''
 	
 	def css(Wiki w) '''
 	
@@ -120,4 +115,179 @@ class WikiGenerator implements IGenerator {
 			text-align:center;
 			padding:5px;
 		}'''
+		
+	def compileJava(Wiki w) '''
+import java.util.ArrayList;
+import java.util.HashMap;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
+
+/**
+ *
+ * @author viktor
+ */
+public class «w.name» extends javax.swing.JFrame {
+
+   
+    private HashMap<String,ArrayList<ArrayList<String>>> sites = new HashMap<>();
+    
+    public «w.name»() {
+        //pro wiki
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("«w.name»");
+        
+        «FOR ss: w.sites»
+        	//pro seite
+            treeNode1.add(new javax.swing.tree.DefaultMutableTreeNode("«ss.name»"));
+            ArrayList<ArrayList<String>> siteContent«ss.name» = new ArrayList<>();
+            sites.put("«ss.name»", siteContent«ss.name»);
+            
+            «FOR pp: ss.pragraphs»
+            //pro para
+            ArrayList<String> sitePara«ss.name»«pp.name» = new ArrayList<>();
+            sitePara«ss.name»«pp.name».add("«pp.name»");
+            sitePara«ss.name»«pp.name».add("«FOR t: pp.text»«t.compile»«ENDFOR»");
+            siteContent«ss.name».add(sitePara«ss.name»«pp.name»);
+            «ENDFOR»
+            
+            
+		«ENDFOR»
+            
+        
+        treeModel = new javax.swing.tree.DefaultTreeModel(treeNode1);
+        initComponents();
+    }
+
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jToolBar1 = new javax.swing.JToolBar();
+        jLabel2 = new javax.swing.JLabel();
+        jSplitPane1 = new javax.swing.JSplitPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTree1 = new javax.swing.JTree();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(51, 51, 51));
+
+        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
+
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("«w.name»");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(165, 165, 165)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(jLabel1)
+                .addContainerGap(57, Short.MAX_VALUE))
+        );
+
+        jToolBar1.setBackground(new java.awt.Color(51, 51, 51));
+        jToolBar1.setRollover(true);
+
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("«w.copyright.copyright2»");
+        jToolBar1.add(jLabel2);
+
+        jTree1.setModel(treeModel);
+        jTree1.setToolTipText("");
+        jTree1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTree1MouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTree1);
+
+        jSplitPane1.setLeftComponent(jScrollPane1);
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane2.setViewportView(jTextArea1);
+
+        jSplitPane1.setRightComponent(jScrollPane2);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        pack();
+    }// </editor-fold>                        
+
+    private void jTree1MouseClicked(java.awt.event.MouseEvent evt) {                                    
+        if (evt.getClickCount() == 1) {
+            TreePath path = jTree1.getPathForLocation(evt.getX(), evt.getY());
+            if (path != null) {
+                System.out.println(path.getLastPathComponent().toString());
+                ArrayList<ArrayList<String>> a = sites.get(path.getLastPathComponent().toString());
+                String textArea = "";
+                for(int x= 0;x<a.size();x++){
+                    String para = a.get(x).get(0);
+                    String text = a.get(x).get(1);
+                    textArea = textArea + "Paragraph:" + para + "\n\r" + "--------------------------------------\n\r" +text + "\n\r\n\r\n\r";
+                }
+                jTextArea1.setText(textArea);
+            }
+        }
+    }                                 
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                «w.name» myFrame = new «w.name»();
+                myFrame.jTree1.removeAll();
+                myFrame.jTree1.repaint();
+                myFrame.setVisible(true);
+                myFrame.repaint();
+            }
+        });
+    }
+    
+    private javax.swing.tree.DefaultTreeModel treeModel;
+    // Variables declaration - do not modify                     
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JTree jTree1;
+    // End of variables declaration                   
+}
+
+
+	'''
 }
