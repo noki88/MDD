@@ -1,6 +1,6 @@
 wiki MyWiki {
-	color #FF0000
-	copyright Jonas
+	color "#000000"
+	copyright "Jonas Harter"
 	site Seite1 {
 		pragraph Para1 {
 			text Text1

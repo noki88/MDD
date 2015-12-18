@@ -7,8 +7,8 @@ Model:
 	
 Wiki:
 	'wiki' name=ID '{'
-		color += Color
-		copyright += Copyright
+		color = Color
+		copyright = Copyright
 		(sites += Site)*
 	'}'
 ;
@@ -40,9 +40,9 @@ Link:
 ;
 
 Color:
-	'color' name='#'ID
+	'color' color2=STRING
 	;
 
 Copyright:
-	'copyright' name=ID
+	'copyright' copyright2=STRING
 	;
